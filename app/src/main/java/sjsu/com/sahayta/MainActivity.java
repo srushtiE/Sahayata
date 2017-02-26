@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity{
     private TextView jsonTextView;
     String jsonURL = "http://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=b1b15e88fa797225412429c1c50c122a1";
 
+    GPSTracker gps;
+
     /* put this into your activity class */
     private SensorManager mSensorManager;
     private float mAccel; // acceleration apart from gravity
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity{
             mAccelCurrent = (float) Math.sqrt((double) (x*x + y*y + z*z));
             float delta = mAccelCurrent - mAccelLast;
             mAccel = mAccel * 0.9f + delta; // perform low-cut filter
-            if (mAccel > 2) {
+            if (mAccel > 12) {
 
                 System.out.println("Device Shaken");
             }
@@ -99,6 +101,16 @@ public class MainActivity extends AppCompatActivity{
 //                return true;
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
                     System.out.println("inside Action_Down");
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},1);
+                    gps = new GPSTracker(MainActivity.this);
+                    if(gps.canGetLocation()) {
+                        System.out.println(" inside canGetLocation");
+                        double latitude = gps.getLatitude();
+                        double longitude = gps.getLongitude();
+                        System.out.println(latitude);
+                        System.out.println(longitude);
+                        jsonTextView.setText("Location - latitude: " + latitude + "\nLongitude: " + longitude);
+                    }
 //                    OkHttpClient client = new OkHttpClient();
 //                    Request request = new Request.Builder().url(jsonURL).build();
 //
@@ -123,9 +135,23 @@ public class MainActivity extends AppCompatActivity{
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
 
                     //PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(MainActivity.this), 0);
-                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.CALL_PHONE},1);
-                    SmsManager sms = SmsManager.getDefault();
-                    sms.sendTextMessage("6692526782", null, "hello neha", null, null);
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.CALL_PHONE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},1);
+                    gps = new GPSTracker(MainActivity.this);
+                    if(gps.canGetLocation()) {
+                        System.out.println(" inside canGetLocation");
+                        double latitude = gps.getLatitude();
+                        double longitude = gps.getLongitude();
+                        System.out.println(latitude);
+                        System.out.println(longitude);
+                        jsonTextView.setText("Location - latitude: " + latitude + "\nLongitude: " + longitude);
+                        SmsManager sms = SmsManager.getDefault();
+                        StringBuffer smsBody = new StringBuffer();
+                        smsBody.append("http://maps.google.com?q=");
+                        smsBody.append(latitude);
+                        smsBody.append(",");
+                        smsBody.append(longitude);
+                        sms.sendTextMessage("6692526782", null, smsBody.toString(), null, null);
+                    }
                     try {
                         TimeUnit.SECONDS.sleep(20);
                     } catch (InterruptedException e) {
