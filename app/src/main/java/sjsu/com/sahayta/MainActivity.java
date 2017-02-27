@@ -47,6 +47,22 @@ public class MainActivity extends AppCompatActivity{
             if (mAccel > 12) {
 
                 System.out.println("Device Shaken");
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS, Manifest.permission.CALL_PHONE},1);
+                SmsManager sms = SmsManager.getDefault();
+                sms.sendTextMessage("6692526782", null, "hello Keya", null, null);
+                try {
+                    TimeUnit.SECONDS.sleep(20);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:6692526782"));
+                if (ActivityCompat.checkSelfPermission(MainActivity.this,
+                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    return ;
+                }
+
+                startActivity(callIntent);
             }
         }
 
