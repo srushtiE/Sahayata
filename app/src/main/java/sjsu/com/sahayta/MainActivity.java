@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity{
     private Button button;
     private TextView jsonTextView;
-    String jsonURL = "http://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=b1b15e88fa797225412429c1c50c122a1";
+    //String jsonURL = "http://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=b1b15e88fa797225412429c1c50c122a1";
 
     GPSTracker gps;
 
