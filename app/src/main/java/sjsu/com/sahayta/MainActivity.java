@@ -16,8 +16,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.util.FloatMath;
 
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity{
@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity{
         button = (Button) findViewById(R.id.buttonCall);
         jsonTextView = (TextView) findViewById(R.id.jsonText);
 
+        System.out.println("id hashed: " + Math.abs(UUID.randomUUID().hashCode()));
         mSensorManager = (SensorManager) getSystemService(this.SENSOR_SERVICE);
         mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
         mAccel = 0.00f;
@@ -148,6 +149,13 @@ public class MainActivity extends AppCompatActivity{
 //                            });
 //                        }
 //                    });
+                    HTTPRequests getRequest = new HTTPRequests();
+                    String url = "http://localhost:5000/";
+                    try{
+                        getRequest.getRequest(url);
+                    } catch(Exception ex){
+                        ex.printStackTrace();
+                    }
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
 
                     //PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(MainActivity.this), 0);
