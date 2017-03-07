@@ -45,4 +45,10 @@ android:orientation="vertical" >
         tools:textSize="30dp"
         tools:textColor="@color/colorPrimary" />
 
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
 </RelativeLayout>

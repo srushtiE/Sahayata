@@ -18,12 +18,16 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.FloatMath;
 
+
 import java.util.concurrent.TimeUnit;
 
-public class MainActivity extends AppCompatActivity{
+
+
+public class MainActivity extends AppCompatActivity {
     private Button button;
     private TextView jsonTextView;
     String jsonURL = "http://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=b1b15e88fa797225412429c1c50c122a1";
+    private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
 
     /* put this into your activity class */
     private SensorManager mSensorManager;
@@ -96,7 +100,7 @@ public class MainActivity extends AppCompatActivity{
         mAccelLast = SensorManager.GRAVITY_EARTH;
         /*button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                Intent callIntent = new Intent(Intent.ACTION_CALL)
                 callIntent.setData(Uri.parse("tel:6692526782"));
 
                 if (ActivityCompat.checkSelfPermission(MainActivity.this,
@@ -106,8 +110,24 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(callIntent);
             }
         });*/
+
         panicButtonFeature();
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS},1);
+
+        setContentView(R.layout.contacts_list_fragment);
+        if (findViewById(R.id.fragment_container) != null) {
+            if (savedInstanceState != null) {
+                return;
+            }
+            ContactsFragment firstFragment = new ContactsFragment();
+            firstFragment.setArguments(getIntent().getExtras());
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, firstFragment).commit();
+        }
+
     }
+
+
+
 
     private void panicButtonFeature() {
         button.setOnTouchListener(new View.OnTouchListener() {
