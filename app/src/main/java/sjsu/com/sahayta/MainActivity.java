@@ -25,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     private Button button;
+    private Button contactButton;
     private TextView jsonTextView;
     String jsonURL = "http://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=b1b15e88fa797225412429c1c50c122a1";
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
@@ -98,34 +99,31 @@ public class MainActivity extends AppCompatActivity {
         mAccel = 0.00f;
         mAccelCurrent = SensorManager.GRAVITY_EARTH;
         mAccelLast = SensorManager.GRAVITY_EARTH;
-        /*button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-                Intent callIntent = new Intent(Intent.ACTION_CALL)
-                callIntent.setData(Uri.parse("tel:6692526782"));
-
-                if (ActivityCompat.checkSelfPermission(MainActivity.this,
-                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                startActivity(callIntent);
-            }
-        });*/
-
         panicButtonFeature();
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS},1);
+        contactButton = (Button) findViewById(R.id.contacts);
+        contactButton.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    System.out.println("inside Action_Down of contact button");
 
-        setContentView(R.layout.contacts_list_fragment);
-        if (findViewById(R.id.fragment_container) != null) {
-            if (savedInstanceState != null) {
-                return;
+                    setContentView(R.layout.contacts_list_fragment);
+                    if (findViewById(R.id.fragment_container) != null) {
+                        /*if (savedInstanceState != null) {
+                            return;
+                        }*/
+                        ContactsFragment firstFragment = new ContactsFragment();
+                        firstFragment.setArguments(getIntent().getExtras());
+                        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, firstFragment).commit();
+                    }
+
+                }
+                return false;
             }
-            ContactsFragment firstFragment = new ContactsFragment();
-            firstFragment.setArguments(getIntent().getExtras());
-            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, firstFragment).commit();
-        }
+
+        });
 
     }
-
 
 
 
