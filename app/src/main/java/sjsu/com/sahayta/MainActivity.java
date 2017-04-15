@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.FloatMath;
+import android.widget.Toast;
 
 
 import java.util.concurrent.TimeUnit;
@@ -102,20 +104,22 @@ public class MainActivity extends AppCompatActivity {
         panicButtonFeature();
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS},1);
         contactButton = (Button) findViewById(R.id.contacts);
+
+       //onClickEvent
         contactButton.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
+                Log.d("Contact Buton","Clicked");
+                Toast.makeText(MainActivity.this, "Button Clicked", Toast.LENGTH_SHORT).show();
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    System.out.println("inside Action_Down of contact button");
+
 
                     setContentView(R.layout.contacts_list_fragment);
                     if (findViewById(R.id.fragment_container) != null) {
-                        /*if (savedInstanceState != null) {
-                            return;
-                        }*/
+                        System.out.println("inside Action_Down of contact button");
                         ContactsFragment firstFragment = new ContactsFragment();
                         firstFragment.setArguments(getIntent().getExtras());
                         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, firstFragment).commit();
-                    }
+                }
 
                 }
                 return false;

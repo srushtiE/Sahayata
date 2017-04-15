@@ -17,9 +17,10 @@
 </RelativeLayout>-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/maindiv"
     android:layout_width="fill_parent"
-android:layout_height="fill_parent"
-android:orientation="vertical" >
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
     <Button
         android:id="@+id/buttonCall"
@@ -60,5 +61,10 @@ android:orientation="vertical" >
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
 
+    <fragment android:name="sjsu.com.sahayta.ContactsFragment"
+        android:id="@+id/fragment_container"
+        android:layout_above="@+id/contacts"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 
 </RelativeLayout>
