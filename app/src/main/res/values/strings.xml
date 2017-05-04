@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Sahayata</string>
+    <string name="welcome_string">We are here to help you</string>
+    <string name="networkFailed">Network Request Not Reachable</string>
+    <string name="panic_button_string">PANIC BUTTON</string>
+    <string name="welcome_sahayata">Welcome to Sahayata</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_maps">Current Place Details</string>
+    <string name="default_info_title">Default Location</string>
+    <string name="incident_report_title">Report Incident</string>
+    <string name="default_info_snippet">You can help others by reporting incident at your place</string>
+    <string name="option_get_place">Get place</string>
+    <string name="pick_place">Choose a place</string>
+</resources>
