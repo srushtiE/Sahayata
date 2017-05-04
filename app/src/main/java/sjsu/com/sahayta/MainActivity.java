@@ -512,7 +512,7 @@ public class MainActivity extends AppCompatActivity
                         mLastKnownLocation.getLongitude()))
                 .snippet(getString(R.string.default_info_snippet));
 
-        marker1.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_man));
+        marker1.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_green_man));
 
 
         Marker m=mMap.addMarker(marker1);
