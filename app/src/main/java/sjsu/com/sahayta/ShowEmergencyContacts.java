@@ -91,9 +91,17 @@ public class ShowEmergencyContacts extends AppCompatActivity {
                 tname.setText(StoreContactPhone.get(position));
                 tnumber = (TextView) view.findViewById(R.id.name);
                 tnumber.setText(StoreContactName.get(position));
-
-
-
+                String checkingindb="";
+                try {
+                     checkingindb = new DBHelper(getApplicationContext()).getData(StoreContactName.get(position).toString());
+                    if(checkingindb.length()>0){
+                        view.setBackgroundColor(Color.parseColor("#ff0000"));
+                    }
+                }
+                catch (Exception e){
+                     checkingindb="";
+                }
+                System.out.println("value in db "+checkingindb);
 
                 return view;
             }

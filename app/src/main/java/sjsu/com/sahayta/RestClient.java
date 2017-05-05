@@ -44,4 +44,8 @@ public class RestClient {
         bd = bd.setScale(2, RoundingMode.HALF_UP);
         return String.valueOf(bd.doubleValue());
     }
+
+    public void postIncident(String incidentvalue, String s) {
+
+    }
 }
