@@ -21,7 +21,7 @@ public class ReportIncident extends AppCompatActivity {
     private Button button;
     private String incidentvalue="";
     final Context context=this;
-    RestClient rc;
+    RestClient rc=new RestClient();
     GPSTracker gps=new GPSTracker(ReportIncident.this);
     double latitude = gps.getLatitude();
     double longitude = gps.getLongitude();
@@ -35,7 +35,7 @@ public class ReportIncident extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
 //                return true;
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    //rc.postIncident(incidentvalue,"1");
+                    rc.postIncident(incidentvalue,"1");
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
                     alertDialogBuilder.setTitle("Sahayata For You");
                     alertDialogBuilder.setMessage("Your details have been submitted")
